@@ -15,12 +15,15 @@ public class Post implements Parcelable{
     private double latitude;
     private double longitude;
     private String message;
+    private long expirationTime; // default 24h after posted
+
 
 
     public Post(LatLng position, String post) {
         latitude = position.latitude;
         longitude = position.longitude;
         this.message = post;
+        expirationTime = System.currentTimeMillis() + 1000*60; //  TODO 1000*60*60*24; // default expiry 24h
     }
 
     public Post() {
@@ -83,5 +86,13 @@ public class Post implements Parcelable{
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public long getExpirationTime() {
+        return expirationTime;
+    }
+
+    public void setExpirationTime(long expirationTime) {
+        this.expirationTime = expirationTime;
     }
 }

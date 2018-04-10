@@ -131,7 +131,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     /**
-     * This method is called everytime the databased is modified. It reloads all the markers in
+     * This method is called every time the databased is modified. It reloads all the markers in
      * the correct postion and resets the list of all posts and populating with the posts currently
      * in the database.
      * @param dataSnapshot snapshot of the current state of the database.
@@ -139,16 +139,23 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private void refresh(DataSnapshot dataSnapshot) {
         mMap.clear();
         posts.clear();
-        for (DataSnapshot ds : dataSnapshot.getChildren()) {
+        long currentTime = System.currentTimeMillis();
+        for (DataSnapshot ds : dataSnapshot.getChildren()) { // all the 1st level of the tree
             Post post = ds.getValue(Post.class); // gets the value that stores object of type Post
-            posts.add(post); // adds it to the list of all posts
-            addMarker(post.getMessage(), post.getPosition()); // creates the marker
+            if (post.getExpirationTime() < currentTime) {
+                System.out.println(ds.getKey());
+                dataSnapshot.child(ds.getKey());
+            }
+            else {
+                posts.add(post); // adds it to the list of all posts
+                addMarker(post.getMessage(), post.getPosition()); // creates the marker
+            }
         }
     }
 
     /**
      * This method returns a position currently displayed on the map given the position (ie matching
-     * longitude and latitude). This method should never return null as of now beacause it is only
+     * longitude and latitude). This method should never return null as of now because it is only
      * called when a marker is clicked, and a marker is there only if the post is locally displayed.
      * @param position location of the post
      * @return The post corresponding to the location. Null if none found.
