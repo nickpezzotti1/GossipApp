@@ -23,7 +23,7 @@ public class Post implements Parcelable{
         latitude = position.latitude;
         longitude = position.longitude;
         this.message = post;
-        expirationTime = System.currentTimeMillis() + 1000*60; //  TODO 1000*60*60*24; // default expiry 24h
+        expirationTime = System.currentTimeMillis() + 1000*60; // 1000*60*60*24; // default expiry 24h
     }
 
     public Post() {

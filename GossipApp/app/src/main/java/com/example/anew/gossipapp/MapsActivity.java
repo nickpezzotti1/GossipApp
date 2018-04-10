@@ -75,8 +75,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 Log.w(TAG, "Failed to read value.", error.toException());
             }
         });
-
-
     }
 
     /**
@@ -143,7 +141,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         for (DataSnapshot ds : dataSnapshot.getChildren()) { // all the 1st level of the tree
             Post post = ds.getValue(Post.class); // gets the value that stores object of type Post
             if (post.getExpirationTime() < currentTime) {
-                System.out.println(ds.getKey());
+                System.out.println("removeds" + ds.getKey());
                 dataSnapshot.child(ds.getKey());
             }
             else {
