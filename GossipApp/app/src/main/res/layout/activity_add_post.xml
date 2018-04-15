@@ -9,16 +9,19 @@
 
     <Button
         android:id="@+id/postButton"
+        style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="129dp"
         android:gravity="center"
-        android:text="Post" />
+        android:text="Post"
+        android:textAppearance="@style/TextAppearance.AppCompat.Widget.Button" />
 
     <EditText
         android:id="@+id/editText"
+        style="@style/Widget.AppCompat.EditText"
         android:layout_width="wrap_content"
         android:layout_height="71dp"
         android:layout_alignParentTop="true"
@@ -26,7 +29,8 @@
         android:layout_marginTop="50dp"
         android:ems="10"
         android:gravity="center"
+        android:hint="Insert your post here"
         android:inputType="textMultiLine"
-        android:text="Insert your post here..."
+        android:singleLine="false"
         android:textAppearance="@android:style/TextAppearance.Material.Subhead" />
 </RelativeLayout>

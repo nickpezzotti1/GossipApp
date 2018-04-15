@@ -7,11 +7,12 @@
     tools:context="com.example.anew.gossipapp.PostActivity">
 
     <TextView
-        android:gravity="center"
         android:id="@+id/postMessage"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:gravity="center"
         android:text="Post has been deleted"
+        android:textAppearance="@android:style/TextAppearance.Holo.Widget.ActionBar.Title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"

@@ -3,6 +3,8 @@ package com.example.anew.gossipapp;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -43,6 +45,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private boolean mapCreated = false;
 
 
+
+
     /**
      * This is run when the activity is loaded; it loads the map and sets the on click listeners.
      * @param savedInstanceState
@@ -75,6 +79,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 Log.w(TAG, "Failed to read value.", error.toException());
             }
         });
+
+
     }
 
     /**
@@ -109,7 +115,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.setOnMarkerClickListener(marker -> {
             Toast.makeText(this, "Marker Clicked", Toast.LENGTH_SHORT).show();
             Post postToReturn = findPost(marker.getPosition());
-            if (postToReturn==null) {
+            if (postToReturn == null) {
                 Toast.makeText(this, "Post No Longer Available", Toast.LENGTH_SHORT).show();
                 return false;
             }
@@ -118,6 +124,30 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             startActivity(intent);
             return false;
         });
+
+        enableCurrentPosition();
+    }
+
+
+    /**
+     * The following method, checks if the user enabled the current position's permission on the app,
+     * if he did displays it and the zoom in current location button.
+     * TODO: make it request the user permssion.
+     */
+    private void enableCurrentPosition() {
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            Log.d("display", "false") ;
+            return;
+        }
+        mMap.setMyLocationEnabled(true);
+        mMap.getUiSettings().setMyLocationButtonEnabled(true);
     }
 
     public void onResume() {
